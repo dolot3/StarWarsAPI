@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Zbn9IimNxp63uCPmwVgN2jWebl0nnwv2rSJ1bvAN1LJsDqFNk9ORuUcZE9mm5nv2w0QA64GlRD0TGngtLO6ZDA==",
+  "success": true,
+  "projectFilePath": "C:\\_work\\tests\\ThreeWill\\starwarsapi\\StarWarsAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Star Wars API page";
+}
+
+   
+@* Question from the user story:  What did the story mean by 'card format'?  Would have to get with product owner or user to get clarification. *@
+<div class="text-left">
+    @*<h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+
+    <span>Enter Number of Persons to Display:  </span>
+    @* This doesn't offer good validation - must be some widget that works better. *@
+    <input type="number" id="textNumPersons" value="1" max="10" min="1">
+    <br/>
+    <button id="btnSubmit">Submit</button>
+
+</div>
+
+<div id="divDisplay"></div>
+
+
+@section scripts{ 
+
+    <script type="text/javascript">
+
+        function GetPersons() {
+
+            var numPersons = $("#textNumPersons").val();
+            
+            var apiUrl = "https://localhost:44329/API/api/" + numPersons;
+
+            $.ajax({
+                url: apiUrl,
+                success: Success,
+                contentType: "application/json"
+            }).fail(function (jqXHR, textStatus, error) {
+                Fail(textStatus);
+            });
+
+        }
+
+        function Success(data) {
+            var html = "";
+
+            //This works, but it feels kludgy as can be.  Not sure if I'm structuring my return object from the API incorrectly or handling it wrong on this end.
+            //Also, in reality there's probably a much more elegant way to handle the data than to build raw html from scratch - i.e. Angular or some such.
+            $.each(JSON.parse(data), function (key, value) {
+                $.each(value, function (key, value) {
+                    html += value + "<br/>";
+                });
+            });
+
+            $("#divDisplay").html(html);
+        }
+
+        function Fail(status) {
+            alert("Unable to retrieve data from server. " + status);
+        }
+
+        function Setup() {
+
+            var button = $("#btnSubmit");
+            button.on("click", GetPersons);
+        }
+
+        $(document).ready(function () {
+            Setup();
+        });
+
+
+    </script>
+
+}
