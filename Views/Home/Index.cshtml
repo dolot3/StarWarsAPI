@@ -15,6 +15,8 @@
     <button id="btnSubmit">Submit</button>
 
 </div>
+<br />
+<br />
 
 <div id="divDisplay"></div>
 
@@ -25,9 +27,7 @@
 
         function GetPersons() {
 
-            var numPersons = $("#textNumPersons").val();
-            
-            var apiUrl = "https://localhost:44329/API/api/" + numPersons;
+            var apiUrl = "https://swapi.dev/api/people/";
 
             $.ajax({
                 url: apiUrl,
@@ -42,13 +42,14 @@
         function Success(data) {
             var html = "";
 
-            //This works, but it feels kludgy as can be.  Not sure if I'm structuring my return object from the API incorrectly or handling it wrong on this end.
-            //Also, in reality there's probably a much more elegant way to handle the data than to build raw html from scratch - i.e. Angular or some such.
-            $.each(JSON.parse(data), function (key, value) {
-                $.each(value, function (key, value) {
-                    html += value + "<br/>";
-                });
-            });
+            var numPersons = parseInt($("#textNumPersons").val());
+
+            //This works, but I think a two-way data binding framework would be more elegant.
+            for (i = 0; i < numPersons; i++) {
+                var person = data.results[i];
+                var display = "<div style='border: 2px solid black'>" + person.name + "</div>";
+                html += display + "<br/>"
+            }
 
             $("#divDisplay").html(html);
         }
